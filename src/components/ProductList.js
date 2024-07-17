@@ -47,7 +47,7 @@ const ProductList = () => {
         setTotalPages(data.totalPages);
         setLoading(false);
       } catch (err) {
-        setError(err.message);
+        setError('Something went wrong !!');
         setLoading(false);
       }
     };
@@ -90,7 +90,17 @@ const ProductList = () => {
 
 
   if (loading) return <Spinner />;
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return (
+      <Grid container justifyContent="center" alignItems="center" style={{ minHeight: "100vh" }}>
+        <Grid item xs={12}>
+          <Typography variant="h5" color="error" gutterBottom textAlign="center">
+            {error}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  }
 
   return (
     <Grid container spacing={2}>
@@ -198,7 +208,7 @@ const ProductList = () => {
 </Grid>
 
       {products.length > 0 && (
-    <Grid item xs={12}>
+    <Grid item xs={12} container justifyContent="center" alignItems="center">
       <Pagination
         count={totalPages}
         page={page}
